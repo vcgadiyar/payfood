@@ -2,6 +2,7 @@ package com.example.vcgadiyar.helloandroid;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -41,6 +42,8 @@ public class ListRestaurants extends Activity {
         CustomListAdapter adapter = new CustomListAdapter(this, itemname, itemDescription, imgid);
         list = (ListView) findViewById(R.id.list);
         list.setAdapter(adapter);
+
+        list.setBackgroundColor(Color.WHITE);
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 

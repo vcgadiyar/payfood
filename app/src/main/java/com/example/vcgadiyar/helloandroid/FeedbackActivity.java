@@ -1,6 +1,7 @@
 package com.example.vcgadiyar.helloandroid;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,8 +30,11 @@ public class FeedbackActivity extends Activity {
             //The key argument here must match that used in the other activity
 
             TextView tvp1 = (TextView) findViewById(R.id.lblitem1);
+            //tvp1.setTextColor(Color.WHITE);
             TextView tvp2 = (TextView) findViewById(R.id.lblitem2);
+            //tvp2.setTextColor(Color.WHITE);
             TextView tvp3 = (TextView) findViewById(R.id.lblitem3);
+           // tvp3.setTextColor(Color.WHITE);
 
             RatingBar rb1 = (RatingBar) findViewById(R.id.ratingBar1);
             RatingBar rb2 = (RatingBar) findViewById(R.id.ratingBar2);

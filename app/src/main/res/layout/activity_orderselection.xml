@@ -37,6 +37,7 @@
             android:textSize="20sp"
             android:textColor="@android:color/white"
             android:textStyle="bold"
+            android:paddingTop="15dp"
             android:layout_centerHorizontal="true"
             android:background="@android:color/black"
             android:layout_below="@+id/list"/>
@@ -50,7 +51,6 @@
             android:gravity="center"
             android:textSize="13sp"
             android:textStyle="bold"
-            android:background="@android:color/holo_blue_bright"
             android:layout_below="@+id/list"
             android:layout_toRightOf="@+id/total_txt"/>
 

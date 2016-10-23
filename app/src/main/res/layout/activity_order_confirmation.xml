@@ -36,11 +36,10 @@
         android:id="@+id/btn_feedbk"
         android:layout_height="wrap_content"
         android:text="@string/lbl_fb"
-        android:layout_width="290dp"
+        android:layout_width="150dp"
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:layout_marginTop="15dp"
-        android:background="@android:color/holo_blue_bright"
         android:textSize="13sp"
         android:textStyle="bold"
         android:layout_below="@+id/pay_t"/>

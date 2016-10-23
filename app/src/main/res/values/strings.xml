@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Fast Feast</string>
+    <string name="app_name">Feast Fast</string>
 
     <color name="white">#F0F4C3</color>
 
@@ -16,7 +16,7 @@
     <string name="title_activity_tweet_list">Send Email here...</string>
     <string name="lbl_email">Email ID</string>
     <string name="lbl_pay">Confirm Order</string>
-    <string name="lbl_fb">Provide Feedback about order</string>
+    <string name="lbl_fb">Order Feedback</string>
     <string name="conf_final">Your order has been placed</string>
     <string name="pay_msg">Please pay at the Clover terminal at Chutneys</string>
     <string name="Total">Total = $0</string>

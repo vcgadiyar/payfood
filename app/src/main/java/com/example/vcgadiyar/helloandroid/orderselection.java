@@ -2,6 +2,7 @@ package com.example.vcgadiyar.helloandroid;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -73,6 +74,7 @@ public class orderselection extends Activity {
         setContentView(R.layout.activity_orderselection);
 
         responseView = (TextView) findViewById(R.id.total_txt);
+        responseView.setTextColor(Color.WHITE);
         progressBar = (ProgressBar)findViewById(R.id.progressBar);
         send_btn = (Button)findViewById(R.id.btn_pay);
 
