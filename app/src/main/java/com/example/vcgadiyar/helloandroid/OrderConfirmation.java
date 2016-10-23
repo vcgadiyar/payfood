@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 public class OrderConfirmation extends Activity {
 
@@ -11,6 +12,15 @@ public class OrderConfirmation extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_confirmation);
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            String orderId = extras.getString("ORDER_ID");
+            //The key argument here must match that used in the other activity
+
+            TextView orderconf = (TextView)findViewById(R.id.conf_t);
+            orderconf.append(". Your Order ID is "+orderId);
+        }
     }
 
     @Override

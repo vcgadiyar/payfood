@@ -60,7 +60,8 @@ public class MenuListAdapter extends ArrayAdapter<String> {
 
         final TextView total_txt = (TextView)context.findViewById(R.id.total_txt);
         cBox.setText(dishname.get(position));
-        cost.setText("$"+dishprice.get(position));
+        double actualPrice = Double.parseDouble(dishprice.get(position))/100;
+        cost.setText("$" + actualPrice);
         rating.setText(starRating[position]);
 
         cBox.setOnClickListener(new View.OnClickListener() {
@@ -102,7 +103,7 @@ public class MenuListAdapter extends ArrayAdapter<String> {
                     {
                         sval = 0;
                     }
-                    total = total - (sval * Double.parseDouble(dishprice.get(position)));
+                    total = total - (sval * (Double.parseDouble(dishprice.get(position))/100));
                     Log.i("beforetextchanged", "bef Value of total is " + total);
                 }
                 checkchanged = false;
@@ -127,7 +128,7 @@ public class MenuListAdapter extends ArrayAdapter<String> {
                     {
                         sval = 0;
                     }
-                    total = total + (sval * Double.parseDouble(dishprice.get(position)));
+                    total = total + (sval * (Double.parseDouble(dishprice.get(position))/100));
                     String tot_txt = "Total = $" + String.valueOf(total);
 
                     Log.i("ontextchanged", "on Value of total is " + total);
@@ -148,7 +149,12 @@ public class MenuListAdapter extends ArrayAdapter<String> {
     };
 
     public Integer getCount(String id) {
-        return countMap.get(id);
+        if (countMap.containsKey(id)) {
+            return countMap.get(id);
+        }
+        else {
+            return 0;
+        }
     }
 }
 

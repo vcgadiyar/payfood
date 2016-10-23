@@ -15,7 +15,9 @@
     <string name="lbl_login">Login</string>
     <string name="title_activity_tweet_list">Send Email here...</string>
     <string name="lbl_email">Email ID</string>
-    <string name="lbl_pay">Pay Now</string>
+    <string name="lbl_pay">Confirm Order</string>
+    <string name="conf_final">Your order has been placed</string>
+    <string name="pay_msg">Please pay at the Clover terminal at Chutneys</string>
     <string name="Total">Total = $0</string>
 
     <string name="hello_world">Hello world!</string>
@@ -26,5 +28,5 @@
     <string name="title_activity_list_restaurants">ListRestaurants</string>
     <string name="title_activity_orderselection">Select your Order</string>
     <string name="menu_heading">Menu</string>
-    <string name="title_activity_order_confirmation">OrderConfirmation</string>
+    <string name="title_activity_order_confirmation">Order Confirmation</string>
 </resources>

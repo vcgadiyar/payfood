@@ -26,10 +26,12 @@ import java.util.HashMap;
 
 public class orderselection extends Activity {
 
+    String requestID = null;
     ListView list;
     int numItems = 0;
     ProgressBar progressBar;
     TextView responseView;
+    MenuListAdapter adapter ;
     Button send_btn;
     HashMap<String, Integer> count = new HashMap<>();
 
@@ -161,7 +163,7 @@ public class orderselection extends Activity {
             }
             progressBar.setVisibility(View.GONE);
 
-            final MenuListAdapter adapter = new MenuListAdapter(orderselection.this, dishnames, dishprice, starRating, requestIds, count);
+            adapter = new MenuListAdapter(orderselection.this, dishnames, dishprice, starRating, requestIds, count);
             list = (ListView) findViewById(R.id.list);
             list.setAdapter(adapter);
 
@@ -170,6 +172,8 @@ public class orderselection extends Activity {
                 public void onClick(View v) {
 
                     new SendOrderTask().execute();
+
+
 
 
                 }
@@ -196,7 +200,25 @@ public class orderselection extends Activity {
         protected String doInBackground(Void... urls) {
             // Do some validation here
 
-            return makePostRequest("https://apisandbox.dev.clover.com/v3/merchants/N6SHG89MRV4BJ/orders?access_token=566130ee-fa82-8bf5-9cec-444f0065eb11", "{\"state\": \"open\"}");
+            String resp = makePostRequest("https://apisandbox.dev.clover.com/v3/merchants/N6SHG89MRV4BJ/orders?access_token=566130ee-fa82-8bf5-9cec-444f0065eb11", "{\"state\": \"open\"}");
+
+            try {
+                JSONObject object = new JSONObject(resp);
+                requestID = object.getString("id");
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            for (int i = 0; i < numItems; i++)
+            {
+                int n = adapter.getCount(requestIds.get(i));
+                for(int j=0;j<n;j++){
+                    String jsondat = "{\"item\": { \"id\":\""+requestIds.get(i)+"\"}}";
+                    makePostRequest("https://apisandbox.dev.clover.com/v3/merchants/N6SHG89MRV4BJ/orders/"+requestID+"/line_items?access_token=566130ee-fa82-8bf5-9cec-444f0065eb11", jsondat);
+                }
+            }
+            return "success";
+
         }
 
         String makePostRequest(String urlstr, String jsondata)
@@ -259,9 +281,10 @@ public class orderselection extends Activity {
 
             //responseView.setText(response);
 
-            Intent intent = new Intent(orderselection.this, OrderConfirmation.class);
-            startActivity(intent);
 
+            Intent intent = new Intent(orderselection.this, OrderConfirmation.class);
+            intent.putExtra("ORDER_ID", requestID);
+            startActivity(intent);
 
 
 
