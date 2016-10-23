@@ -56,6 +56,10 @@
             android:name=".OrderConfirmation"
             android:label="@string/title_activity_order_confirmation" >
         </activity>
+        <activity
+            android:name=".FeedbackActivity"
+            android:label="@string/title_activity_feedback" >
+        </activity>
     </application>
 
 </manifest>

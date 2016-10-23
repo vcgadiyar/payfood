@@ -16,6 +16,7 @@
     <string name="title_activity_tweet_list">Send Email here...</string>
     <string name="lbl_email">Email ID</string>
     <string name="lbl_pay">Confirm Order</string>
+    <string name="lbl_fb">Provide Feedback about order</string>
     <string name="conf_final">Your order has been placed</string>
     <string name="pay_msg">Please pay at the Clover terminal at Chutneys</string>
     <string name="Total">Total = $0</string>
@@ -29,4 +30,5 @@
     <string name="title_activity_orderselection">Select your Order</string>
     <string name="menu_heading">Menu</string>
     <string name="title_activity_order_confirmation">Order Confirmation</string>
+    <string name="title_activity_feedback">Please submit feedback</string>
 </resources>

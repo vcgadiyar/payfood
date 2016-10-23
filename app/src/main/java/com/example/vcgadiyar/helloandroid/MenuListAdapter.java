@@ -16,6 +16,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -47,6 +49,14 @@ public class MenuListAdapter extends ArrayAdapter<String> {
 
     }
 
+    private static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        BigDecimal bd = new BigDecimal(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+    }
+
     public View getView(final int position,View view,ViewGroup parent) {
         LayoutInflater inflater=context.getLayoutInflater();
         View rowView=inflater.inflate(R.layout.menulist, null, true);
@@ -60,7 +70,8 @@ public class MenuListAdapter extends ArrayAdapter<String> {
 
         final TextView total_txt = (TextView)context.findViewById(R.id.total_txt);
         cBox.setText(dishname.get(position));
-        double actualPrice = Double.parseDouble(dishprice.get(position))/100;
+        double actualPrice1 = Double.parseDouble(dishprice.get(position))/100;
+        double actualPrice = round(actualPrice1, 2);
         cost.setText("$" + actualPrice);
         rating.setText(starRating[position]);
 
@@ -104,6 +115,7 @@ public class MenuListAdapter extends ArrayAdapter<String> {
                         sval = 0;
                     }
                     total = total - (sval * (Double.parseDouble(dishprice.get(position))/100));
+                    total = round(total, 2);
                     Log.i("beforetextchanged", "bef Value of total is " + total);
                 }
                 checkchanged = false;
@@ -129,6 +141,7 @@ public class MenuListAdapter extends ArrayAdapter<String> {
                         sval = 0;
                     }
                     total = total + (sval * (Double.parseDouble(dishprice.get(position))/100));
+                    total = round(total, 2);
                     String tot_txt = "Total = $" + String.valueOf(total);
 
                     Log.i("ontextchanged", "on Value of total is " + total);

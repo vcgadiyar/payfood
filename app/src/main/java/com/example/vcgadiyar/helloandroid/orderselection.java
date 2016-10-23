@@ -35,6 +35,8 @@ public class orderselection extends Activity {
     Button send_btn;
     HashMap<String, Integer> count = new HashMap<>();
 
+    HashMap<String, Integer> feedbItems = new HashMap<>();
+
     static final String SessionToken = "566130ee-fa82-8bf5-9cec-444f0065eb11";
     static final String API_URL = "https://apisandbox.dev.clover.com/v3/merchants/N6SHG89MRV4BJ/items";
 
@@ -59,10 +61,10 @@ public class orderselection extends Activity {
             "2 stars (22)",
             "3 stars (44)",
             "5 stars (35)",
-            "4 stars",
-            "3 stars",
-            "2 stars",
-            "1 star"
+            "4 stars (17)",
+            "3 stars (90)",
+            "2 stars (88)",
+            "1 star (55)"
     };
 
     @Override
@@ -212,6 +214,10 @@ public class orderselection extends Activity {
             for (int i = 0; i < numItems; i++)
             {
                 int n = adapter.getCount(requestIds.get(i));
+                if (n > 0)
+                {
+                    feedbItems.put(dishnames.get(i), n);
+                }
                 for(int j=0;j<n;j++){
                     String jsondat = "{\"item\": { \"id\":\""+requestIds.get(i)+"\"}}";
                     makePostRequest("https://apisandbox.dev.clover.com/v3/merchants/N6SHG89MRV4BJ/orders/"+requestID+"/line_items?access_token=566130ee-fa82-8bf5-9cec-444f0065eb11", jsondat);
@@ -284,6 +290,7 @@ public class orderselection extends Activity {
 
             Intent intent = new Intent(orderselection.this, OrderConfirmation.class);
             intent.putExtra("ORDER_ID", requestID);
+            intent.putExtra("hashMap", feedbItems);
             startActivity(intent);
 
 

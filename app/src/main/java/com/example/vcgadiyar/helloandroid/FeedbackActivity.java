@@ -1,51 +1,57 @@
 package com.example.vcgadiyar.helloandroid;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
-public class OrderConfirmation extends Activity {
+public class FeedbackActivity extends Activity {
+
+    ArrayList<String> tvs =  new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order_confirmation);
+        setContentView(R.layout.activity_feedback);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            String orderId = extras.getString("ORDER_ID");
+
 
             final HashMap<String, Integer> hashMap = (HashMap<String, Integer>) getIntent().getSerializableExtra("hashMap");
             //The key argument here must match that used in the other activity
 
-            TextView orderconf = (TextView)findViewById(R.id.conf_t);
-            orderconf.append(". Your Order ID is "+orderId);
+            TextView tvp1 = (TextView) findViewById(R.id.lblitem1);
+            TextView tvp2 = (TextView) findViewById(R.id.lblitem2);
+            TextView tvp3 = (TextView) findViewById(R.id.lblitem3);
 
-            Button _fbBtn = (Button) findViewById(R.id.btn_feedbk);
+            RatingBar rb1 = (RatingBar) findViewById(R.id.ratingBar1);
+            RatingBar rb2 = (RatingBar) findViewById(R.id.ratingBar2);
+            RatingBar rb3 = (RatingBar) findViewById(R.id.ratingBar3);
 
-            _fbBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    Intent intent = new Intent(OrderConfirmation.this, FeedbackActivity.class);
-                    intent.putExtra("hashMap", hashMap);
-                    startActivity(intent);
-                }
-            });
+            Iterator it = hashMap.entrySet().iterator();
+            while (it.hasNext()) {
+                Map.Entry pair = (Map.Entry)it.next();
+                tvs.add((String)pair.getKey());
+                it.remove(); // avoids a ConcurrentModificationException
+            }
+            tvp1.setText(tvs.get(0));
+            tvp2.setText(tvs.get(1));
+            tvp3.setText(tvs.get(2));
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_order_confirmation, menu);
+        getMenuInflater().inflate(R.menu.menu_feedback, menu);
         return true;
     }
 
