@@ -26,4 +26,5 @@
     <string name="title_activity_list_restaurants">ListRestaurants</string>
     <string name="title_activity_orderselection">Select your Order</string>
     <string name="menu_heading">Menu</string>
+    <string name="title_activity_order_confirmation">OrderConfirmation</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.example.vcgadiyar.helloandroid;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,7 +17,9 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,6 +27,7 @@ import java.util.HashMap;
 public class orderselection extends Activity {
 
     ListView list;
+    int numItems = 0;
     ProgressBar progressBar;
     TextView responseView;
     Button send_btn;
@@ -66,7 +70,7 @@ public class orderselection extends Activity {
 
         responseView = (TextView) findViewById(R.id.total_txt);
         progressBar = (ProgressBar)findViewById(R.id.progressBar);
-        send_btn = (Button)findViewById(R.id.btn_send);
+        send_btn = (Button)findViewById(R.id.btn_pay);
 
 
 
@@ -138,6 +142,7 @@ public class orderselection extends Activity {
                 JSONObject object = new JSONObject(response);
 
                 JSONArray leaders= object.getJSONArray("elements");
+                numItems = leaders.length();
                 Log.d("elements",leaders.toString());
                 for(int i=0;i<leaders.length(); i++){
                     JSONObject jsonas = leaders.getJSONObject(i);
@@ -147,7 +152,7 @@ public class orderselection extends Activity {
                     String price = jsonas.getString("price");
                     Log.d("Price of Dish", price);
                     dishprice.add(i, price);
-                    String requestID = object.getString("id");
+                    String requestID = jsonas.getString("id");
                     requestIds.add(i, requestID);
                 }
 
@@ -160,13 +165,118 @@ public class orderselection extends Activity {
             list = (ListView) findViewById(R.id.list);
             list.setAdapter(adapter);
 
+            send_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    new SendOrderTask().execute();
+
+
+                }
+            });
+
 
         }
 
         public RetrieveFeedTask() {
 
         }
+
+
     }
+
+    class SendOrderTask extends AsyncTask<Void, Void, String> {
+
+
+        protected void onPreExecute() {
+
+            progressBar.setVisibility(View.VISIBLE);
+        }
+
+        protected String doInBackground(Void... urls) {
+            // Do some validation here
+
+            return makePostRequest("https://apisandbox.dev.clover.com/v3/merchants/N6SHG89MRV4BJ/orders?access_token=566130ee-fa82-8bf5-9cec-444f0065eb11", "{\"state\": \"open\"}");
+        }
+
+        String makePostRequest(String urlstr, String jsondata)
+        {
+            try {
+
+                //URL url = new URL("https://apisandbox.dev.clover.com/v3/merchants/N6SHG89MRV4BJ/orders?access_token=566130ee-fa82-8bf5-9cec-444f0065eb11");
+                URL url = new URL(urlstr);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setDoOutput(true);
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Content-Type", "application/json");
+
+                //String input = "{\"state\": \"open\"}";
+                String input = jsondata;
+
+                OutputStream os = conn.getOutputStream();
+                os.write(input.getBytes());
+                os.flush();
+
+/*            if (conn.getResponseCode() != HttpURLConnection.HTTP_CREATED) {
+                throw new RuntimeException("Failed : HTTP error code : "
+                    + conn.getResponseCode());
+            }*/
+
+                BufferedReader br = new BufferedReader(new InputStreamReader(
+                        (conn.getInputStream())));
+
+                String output;
+                System.out.println("Output from Server .... \n");
+                StringBuilder stringBuilder = new StringBuilder();
+                String line;
+                while ((output = br.readLine()) != null) {
+                    System.out.println(output);
+                    stringBuilder.append(output).append("\n");
+                }
+
+                conn.disconnect();
+                return  stringBuilder.toString();
+
+            } catch (MalformedURLException e) {
+
+                e.printStackTrace();
+                return null;
+
+            } catch (Exception e) {
+
+                e.printStackTrace();
+                return null;
+
+            }
+        }
+
+        protected void onPostExecute(String response) {
+            if(response == null) {
+                response = "THERE WAS AN ERROR";
+            }
+
+            Log.i("INFO", response);
+
+            //responseView.setText(response);
+
+            Intent intent = new Intent(orderselection.this, OrderConfirmation.class);
+            startActivity(intent);
+
+
+
+
+
+
+        }
+
+        public SendOrderTask() {
+
+        }
+
+
+    }
+
+
 }
 
 

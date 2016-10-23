@@ -4,6 +4,10 @@ android {
     compileSdkVersion 24
     buildToolsVersion "24.0.1"
 
+    //compileSdkVersion 23
+    //buildToolsVersion '23.0.1'
+    //useLibrary  'org.apache.http.legacy'
+
     defaultConfig {
         applicationId "com.example.vcgadiyar.helloandroid"
         minSdkVersion 21
@@ -23,4 +27,10 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.google.android.gms:play-services:9.4.0'
+    //compile 'org.apache.httpcomponents:httpclient:4.2.6'
+
+    //compile 'org.apache.httpcomponents:httpmime:4.2.6'
+
 }
+
+

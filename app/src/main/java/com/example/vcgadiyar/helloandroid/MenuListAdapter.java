@@ -24,11 +24,12 @@ public class MenuListAdapter extends ArrayAdapter<String> {
     private final Activity context;
     private final ArrayList<String> dishname;
     private final ArrayList<String> dishprice;
+    private final  ArrayList<String> requestIds;
 
     private final String[] starRating;
     private  static double total;
     private static boolean checkchanged = false;
-    HashMap<String, Integer> count;
+    HashMap<String, Integer> countMap;
 
     public MenuListAdapter(Activity context, ArrayList<String> dishname, ArrayList<String> dishprice, String[] starRating, ArrayList<String> reuqestIds, HashMap<String, Integer> count
                            ) {
@@ -40,7 +41,8 @@ public class MenuListAdapter extends ArrayAdapter<String> {
         this.dishprice=dishprice;
         this.starRating = starRating;
         this.total = 0;
-        this.count = count;
+        this.countMap = count;
+        this.requestIds = reuqestIds;
 
 
     }
@@ -48,8 +50,6 @@ public class MenuListAdapter extends ArrayAdapter<String> {
     public View getView(final int position,View view,ViewGroup parent) {
         LayoutInflater inflater=context.getLayoutInflater();
         View rowView=inflater.inflate(R.layout.menulist, null, true);
-
-        this.count.put("ABCD", 999);
 
 
         final CheckBox cBox = (CheckBox) rowView.findViewById(R.id.checkBox1);
@@ -112,9 +112,10 @@ public class MenuListAdapter extends ArrayAdapter<String> {
             @Override
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
+                int sval = 0;
                 if (s.length() != 0 ) {
 
-                    int sval = 0;
+
 
                     try
                     {
@@ -133,6 +134,10 @@ public class MenuListAdapter extends ArrayAdapter<String> {
 
                     total_txt.setText(tot_txt);
                 }
+
+                countMap.put(requestIds.get(position), sval);
+
+
                 checkchanged = false;
             }
         });
@@ -143,7 +148,7 @@ public class MenuListAdapter extends ArrayAdapter<String> {
     };
 
     public Integer getCount(String id) {
-        return count.get(id);
+        return countMap.get(id);
     }
 }
 
