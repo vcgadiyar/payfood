@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.vcgadiyar.helloandroid" >
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -19,6 +22,35 @@
         <activity
             android:name=".TweetListActivity"
             android:label="@string/title_activity_tweet_list" >
+        </activity>
+        <activity
+            android:name=".GameActivity"
+            android:label="@string/title_activity_game" >
+        </activity>
+        <activity
+            android:name=".CreateFileActivity"
+            android:label="@string/title_activity_create_file" >
+            <meta-data
+                android:name="com.google.android.apps.drive.APP_ID"
+                android:value="id=143021" />
+
+            <intent-filter>
+                <action android:name="com.google.android.apps.drive.DRIVE_OPEN" />
+
+                <data android:mimeType="application/vnd.google-apps.drive-sdk.143021" />
+                <data android:mimeType="application/vnd.google-apps.document" />
+                <data android:mimeType="image/png" />
+                <data android:mimeType="image/jpeg" />
+                <data android:mimeType="image/jpg" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ListRestaurants"
+            android:label="@string/title_activity_list_restaurants" >
+        </activity>
+        <activity
+            android:name=".orderselection"
+            android:label="@string/title_activity_orderselection" >
         </activity>
     </application>
 
